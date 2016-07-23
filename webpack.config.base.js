@@ -9,6 +9,8 @@ export default {
     }, {
       test: /\.json$/,
       loader: 'json-loader'
+    }, {
+      test: /\.tsx?$/, loader: 'awesome-typescript-loader'
     }]
   },
   output: {
@@ -17,7 +19,7 @@ export default {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json'],
+    extensions: ['', '.js', '.jsx', '.json', '.ts', '.tsx'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
   plugins: [
