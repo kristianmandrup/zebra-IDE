@@ -1,0 +1,60 @@
+var angleStart = -360;
+
+// jquery rotate animation
+function rotate(li,d) {
+    $({d:angleStart}).animate({d:d}, {
+        step: function(now) {
+            $(li)
+               .css({ transform: 'rotate('+now+'deg)' })
+               .find('label')
+                  .css({ transform: 'rotate('+(-now)+'deg)' });
+        }, duration: 0
+    });
+}
+
+// show / hide the options
+function toggleOptions(s) {
+    $(s).toggleClass('open');
+    var li = $(s).find('li');
+    var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
+    for(var i=0; i<li.length; i++) {
+        var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
+        $(s).hasClass('open') ? rotate(li[i],d) : rotate(li[i],angleStart);
+    }
+}
+
+// http://codepen.io/MarcMalignan/pen/xlAgJ
+
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import styles from './Canvas.css';
+import autobind from 'autobind-decorator';
+import $ from 'jquery';
+
+export default class CircularMenu extends Component {
+  static propTypes = {
+  };
+
+  componentDidMount() {
+    $('.selector button').click(function(e) {
+        toggleOptions($(this).parent());
+    });
+
+    setTimeout(function() { toggleOptions('.selector'); }, 100);
+  }
+
+  render() {
+    return (
+      <div className="selector">
+        <ul>
+          { for (let item in items) {
+            <li>
+              <input id={item.id} type="checkbox">
+              <label for={item.id}>{item.id}</label>
+            <li>
+        </ul>
+        <button>+</button>
+      </div>
+    )
+  }
+}

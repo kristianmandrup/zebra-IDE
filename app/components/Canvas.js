@@ -10,7 +10,9 @@ export default class Canvas extends Component {
   componentDidMount() {
     zebra.ready(() => {
       // create canvas 400x700 pixels
-      var root = new zebra.ui.zCanvas('screen', 400, 600).root;
+      var canvas = new zebra.ui.zCanvas('screen', 400, 600)
+      // canvas.fullScreen();
+      var root = canvas.root;
 
       // fill canvas root panel with UI components
       root.setLayout(new zebra.layout.BorderLayout(8));
