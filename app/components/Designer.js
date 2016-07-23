@@ -5,6 +5,7 @@ import autobind from 'autobind-decorator';
 
 function checkbox(x, y) {
   return new zebra.ui.Checkbox("Check-box").properties({
+    type: 'Checkbox',
     value: true,
     location: [x, y]
   });
@@ -32,24 +33,30 @@ function button(label, x, y, onClick) {
   ).properties({
     type: 'Button',
     value: true,
-    canHaveFocus: true,
-    // catchInput: false,
     location: [x, y]
   });
 
   if (onClick) {
-    console.log('button bind', onClick);
     button.bind(onClick);
   }
   return button;
 }
 
-function slider(x, y) {
-  return new zebra.ui.Slider().properties({
+// TODO: class
+function slider(props) {
+  var defaults = {
+    type: 'Slider',
     value: true,
     size : [120, 60],
-    location: [x, y]
-  });
+    location: [10,10]
+  }
+  props.location = props.location || [];
+  props.location[0] = props.location[0] || props.x;
+  props.location[1] = props.location[1] || props.y;
+
+  props = Object.assign(defaults, props);
+
+  return new zebra.ui.Slider().properties(props);
 }
 
 function textField(text, x, y) {
@@ -80,10 +87,6 @@ export default class Designer extends Component {
         console.log('shaper focus', e);
       }
     ]);
-    // shaper.bind(() => {
-    //   console.log('clicked');
-    // });
-    // shaper.catchInput(true);
     return shaper;
   }
 
@@ -111,7 +114,7 @@ export default class Designer extends Component {
 
                 self.design(button('hello', 90, 50, self.changeBtnText)),
 
-                self.design(slider(100,80))
+                self.design(slider({x: 100, y: 80, name: 'Slider-1'}))
               ]
             })),
 
