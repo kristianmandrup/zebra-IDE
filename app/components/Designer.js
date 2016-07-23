@@ -3,23 +3,103 @@ import { Link } from 'react-router';
 import styles from './Canvas.css';
 import autobind from 'autobind-decorator';
 
+function checkbox(x, y) {
+  return new zebra.ui.Checkbox("Check-box").properties({
+    value: true,
+    location: [x, y]
+  });
+}
+
+function button(label, x, y, onClick) {
+  var button = new zebra.ui.Button(label, [
+    function mouseEntered(e){ this.setBackground("orange"); },
+    function mouseExited(e) { this.setBackground(null); },
+
+    function focused() {
+      console.log('button focus');
+      this.$super();
+       if (this.hasFocus()) {
+            this.focusComponent.setColor("orange");
+       }
+       else {
+            this.focusComponent.setColor("black");
+       }
+    },
+    function focusGained(e) {
+      console.log('button focusGained');
+    }
+    ]
+  ).properties({
+    type: 'Button',
+    value: true,
+    canHaveFocus: true,
+    // catchInput: false,
+    location: [x, y]
+  });
+
+  if (onClick) {
+    console.log('button bind', onClick);
+    button.bind(onClick);
+  }
+  return button;
+}
+
+function slider(x, y) {
+  return new zebra.ui.Slider().properties({
+    value: true,
+    size : [120, 60],
+    location: [x, y]
+  });
+}
+
+function textField(text, x, y) {
+  var text = new zebra.ui.TextField(text).properties({ 
+    font: new zebra.ui.Font("Arial", "bold", 24), 
+    padding:8
+  });
+  return text;
+}
+
 export default class Designer extends Component {
   static propTypes = {
   };
 
+  changeBtnText() {
+    console.log('changeBtnText');
+    this.root.add(zebra.layout.BOTTOM, textField('hello'));
+  }
+
+  design(object) {
+    var shaper = new zebkit.ui.designer.ShaperPan(object, [
+
+      function mousePressed(e) {
+        console.log('shaper pressed', e.source.kids[0].type);
+      },
+
+      function focused(e) {
+        console.log('shaper focus', e);
+      }
+    ]);
+    // shaper.bind(() => {
+    //   console.log('clicked');
+    // });
+    // shaper.catchInput(true);
+    return shaper;
+  }
+
   componentDidMount() {
+    var self = this;
      zebkit.ready(function() {
-        var canvas = new zebra.ui.zCanvas('screen', 400, 600)
+        self.canvas = new zebra.ui.zCanvas('screen', 400, 600)
         // canvas.fullScreen();
-        var root = canvas.root;
+        self.root = self.canvas.root;
 
         // fill canvas root panel with UI components
         // root.setLayout(new zebra.layout.BorderLayout(8));
         // root.add(zebra.layout.CENTER, new zebra.ui.TextArea(""));
         // root.add(zebra.layout.BOTTOM, new zebra.ui.Button("Clean"));
 
-
-        root.properties({
+        self.root.properties({
           layout : new zebra.layout.BorderLayout(4, 4),
           border : new zebra.ui.Border(),
           padding: 8,
@@ -27,28 +107,18 @@ export default class Designer extends Component {
             center: new zebra.ui.BorderPan("Designer panel", new zebra.ui.Panel({
               padding: 6,
               kids: [
-                new zebkit.ui.designer.ShaperPan(new zebra.ui.Checkbox("Check-box").properties({
-                  value:true,
-                  location: [10, 10]
-                })),
+                self.design(checkbox(10,10)),
 
-                new zebkit.ui.designer.ShaperPan(new zebra.ui.Button("Button").properties({
-                  value:true,
-                  location: [90, 50]
-                })),
+                self.design(button('hello', 90, 50, self.changeBtnText)),
 
-                new zebkit.ui.designer.ShaperPan(new zebra.ui.Slider().properties({
-                  value:true,
-                  size : [120, 60],
-                  location: [30, 100]
-                }))
+                self.design(slider(100,80))
               ]
             })),
 
             bottom: new zebra.ui.Button("Align", [
               function fire() {
                 this.$super();
-                var y = 10, c = root.findAll("//zebkit.ui.designer.ShaperPan");
+                var y = 10, c = self.root.findAll("//zebkit.ui.designer.ShaperPan");
                 for(var i=0; i < c.length; i++)  {
                   c[i].toPreferredSize();
                   c[i].setLocation(10, y);
