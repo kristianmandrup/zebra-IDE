@@ -9,7 +9,14 @@ export default class Home extends Component {
       <div>
         <div className={styles.container}>
           <h2>Home</h2>
-          <Link to="/counter">to Counter</Link>
+          <ul>
+            <li>
+              <Link to="/counter">to Counter</Link>
+            </li>
+            <li>
+              <Link to="/canvas">to Canvas</Link>
+            </li>
+          </ul>
         </div>
       </div>
     );
