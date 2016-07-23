@@ -1,4 +1,4 @@
-# electron-react-boilerplate
+# Zebra IDE
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -11,6 +11,12 @@
 
 [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
 
+Zebra IDE is a UI/UX prototyping tool built using [Zebkit](http://www.zebkit.com/), a powerful Rich GUI canvas library.
+
+We want Zebra IDE to be a graphical tool for building application UI/UX prototypes that can be exported and ported to your framework of choice.
+
+The export will be to a generic (canonical) format, which you can then adapt to your scenarios and use cases. We expect the community to provide adapters for frameworks such as: React, Angular, Aurelia, Fuse etc.
+
 ## Screenshot
 
 ![](https://cloud.githubusercontent.com/assets/3382565/10557547/b1f07a4e-74e3-11e5-8d27-79ab6947d429.gif)
@@ -20,33 +26,23 @@
 First, clone the repo via git:
 
 ```bash
-git clone https://github.com/chentsulin/electron-react-boilerplate.git your-project-name
+git clone https://github.com/kristianmandruo/zebra-IDE.git
 ```
 
 And then install dependencies.
 
 ```bash
-$ cd your-project-name && npm install
+$ cd zebra-IDE && npm install
 ```
 
 
 ## Run
-
-Run this two commands __simultaneously__ in different console tabs.
-
-```bash
-$ npm run hot-server
-$ npm run start-hot
-```
-
-or run two servers with one command
 
 ```bash
 $ npm run dev
 ```
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
-
 
 ## DevTools
 
@@ -73,7 +69,6 @@ externals: [
 ```
 
 You can find those lines in the file.
-
 
 ## CSS Modules
 
@@ -132,20 +127,6 @@ We use [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-
 
 > Note: webpack >= 1.12.15 has built-in support for `electron-main` and `electron-renderer` targets.
 
-## How to keep the boilerplate updated
-
-If your application is a fork from this repo, you can add this repo to another git remote:
-
-```sh
-git remote add upstream https://github.com/chentsulin/electron-react-boilerplate.git
-```
-
-Then, use git to merge some latest commits:
-
-```sh
-git pull upstream master
-```
-
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
@@ -153,18 +134,7 @@ If you want to have native-like User Interface (OS X El Capitan and Windows 10),
 
 ## Maintainers
 
-- [C. T. Lin](https://github.com/chentsulin)
-- [Jhen-Jie Hong](https://github.com/jhen0409)
-
+- [Kristian Mandrup](https://github.com/kristianmandrup)
 
 ## License
-MIT © [C. T. Lin](https://github.com/chentsulin)
-
-[npm-image]: https://img.shields.io/npm/v/electron-react-boilerplate.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/electron-react-boilerplate
-[travis-image]: https://travis-ci.org/chentsulin/electron-react-boilerplate.svg?branch=master
-[travis-url]: https://travis-ci.org/chentsulin/electron-react-boilerplate
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/github/chentsulin/electron-react-boilerplate?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/chentsulin/electron-react-boilerplate/branch/master
-[david_img]: https://img.shields.io/david/chentsulin/electron-react-boilerplate.svg
-[david_site]: https://david-dm.org/chentsulin/electron-react-boilerplate
+MIT © [Kristian Mandrup](https://github.com/kristianmandrup)
