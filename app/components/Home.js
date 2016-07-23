@@ -16,6 +16,9 @@ export default class Home extends Component {
             <li>
               <Link to="/canvas">to Canvas</Link>
             </li>
+            <li>
+              <Link to="/designer">to Designer</Link>
+            </li>
           </ul>
         </div>
       </div>
